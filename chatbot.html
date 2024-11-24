@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - CODECARE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chatbot-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #3498db;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .chatbox {
+            height: 350px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f4f7fa;
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.05);
+            font-size: 1em;
+        }
+
+        .user-message, .bot-message {
+            max-width: 75%;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .user-message {
+            background-color: #3498db;
+            color: #fff;
+            float: right;
+        }
+
+        .bot-message {
+            background-color: #e0eafc;
+            color: #333;
+            float: left;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <h2>Chatbot</h2>
+        <div class="chatbox" id="chatbox"></div>
+        <input type="text" id="userInput" placeholder="Type your message here...">
+        <button class="btn" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const chatbox = document.getElementById('chatbox');
+            const userInput = document.getElementById('userInput').value;
+
+            if (userInput.trim()) {
+                // Display user message
+                chatbox.innerHTML += `<div class="user-message">${userInput}</div>`;
+
+                // Prepare API call
+                const apiKey = "AIzaSyCpVDQYC-Rk1bdZApL6uhtJRtPTvzTmurk";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [
+                        {
+                            parts: [
+                                { text: userInput }
+                            ]
+                        }
+                    ]
+                };
+
+                try {
+                    // Make API request
+                    const response = await fetch(apiUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // Check if response is OK
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    console.log("API Response:", data); // For debugging
+
+                    // Display bot response
+                    const botReply = data?.contents?.[0]?.parts?.[0]?.text || "Sorry, I couldn't process that.";
+                    chatbox.innerHTML += `<div class="bot-message">${botReply}</div>`;
+                } catch (error) {
+                    console.error("Error:", error); // Log error for debugging
+                    chatbox.innerHTML += `<div class="bot-message">There was an error processing your request. Please try again.</div>`;
+                }
+
+                // Clear input and auto-scroll
+                document.getElementById('userInput').value = '';
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>

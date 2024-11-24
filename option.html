@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose an Option</title>
+    <style>
+        /* Background and font settings */
+        body {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container styling */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 60px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Header styling */
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Button styling */
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .but{
+            background-color: #ec53b2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Button glow effect */
+        .btn:active {
+            box-shadow: 0px 0px 15px rgba(52, 152, 219, 0.6);
+            transform: scale(1);
+        }
+
+        /* Animation for fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Choose Your Path</h2>
+        <button class="btn" onclick="codingPlatform()">Coding Platform</button>
+        <button class="btn" onclick="mentalHealth()">Mental Health Care</button><br><br>
+        <button class="but" onclick="logo()">Back to Home</button>
+    </div>
+    
+    <script>
+        function codingPlatform() {
+            window.location.href = "instructions_codeOutput.html"; // Redirect to coding page
+        }
+
+        function mentalHealth() {
+            window.location.href = "mental_health_care.html"; // Redirect to mental health care page
+        }
+        function logo(){
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

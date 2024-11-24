@@ -1,0 +1,122 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Analysis</title>
+    <style>
+        /* Body and Background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2cdacb, #51c3ea);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        /* Container Styling */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading */
+        h2 {
+            font-size: 2em;
+            color: #0589f4;
+            margin-bottom: 20px;
+        }
+
+        /* Analysis Content */
+        .analysis {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-top: 10px;
+        }
+
+        /* Styled Analysis Lines */
+        .analysis p {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        /* Icons with Each Analysis Line */
+        .analysis p span.icon {
+            font-size: 1.5em;
+            color: #27ae60;
+            margin-right: 10px;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Result Analysis</h2>
+        <div class="analysis">
+            <p><span class="icon">🏅</span><strong>Grade:</strong> A</p>
+            <p><span class="icon">⏱️</span><strong>Time Complexity:</strong> O(n)</p>
+            <p><span class="icon">📦</span><strong>Space Complexity:</strong> O(1)</p>
+            <p><span class="icon">💡</span><strong>Instructions:</strong> Try to reduce the time complexity by optimizing the loop.</p>
+        </div>
+        <button class="btn" onclick="out()">Back to Home</button><br><br>
+
+    </div>
+    <script>
+        function out() {
+            window.location.href = "option.html"; 
+        }
+        function displayAnalysis() {
+            const analysisData = JSON.parse(sessionStorage.getItem('analysisData'));
+            if (analysisData) {
+                document.getElementById('grade').innerText = analysisData.grade;
+                document.getElementById('timeComplexity').innerText = analysisData.timeComplexity;
+                document.getElementById('spaceComplexity').innerText = analysisData.spaceComplexity;
+                document.getElementById('suggestions').innerText = analysisData.suggestions;
+            } else {
+                console.error('No analysis data found.');
+            }
+        }
+
+        function out() {
+            window.location.href = "option.html"; 
+        }
+    </script>
+     
+</body>
+</html>-->

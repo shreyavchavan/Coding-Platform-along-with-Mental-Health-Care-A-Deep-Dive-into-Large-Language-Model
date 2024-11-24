@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Solver</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .main-container {
+            width: 90%;
+            max-width: 1300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        /* Flex container for side-by-side layout */
+        .flex-container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.6s ease;
+        }
+        /* Animation for fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            color: #34495e;
+        }
+        /* Text Area Styling */
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f3f5fa;
+            margin-top: 15px;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #4e54c8;
+        }
+        /* Button Styling */
+        .btn {
+            background-color: #6a5acd;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(106, 90, 205, 0.3);
+            margin: 15px 5px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #5b4fcf;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(106, 90, 205, 0.4);
+        }
+        /* Result Analysis Styling */
+        .analysis {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-top: 10px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            display: none; /* Initially hidden */
+            animation: fadeIn 0.8s ease;
+        }
+        .analysis p {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .analysis p span.icon {
+            font-size: 1.4em;
+            color: #27ae60;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        function generateProblem(){
+            var num= Math.floor(getRandomArbitrary(0,99));
+           var prb_statement= mediumLevelProblems[num];
+           jQuery("#prb_statement").html(prb_statement);
+
+        }
+        function analyzeCode(){
+            const apiKey = "AIzaSyA6cM-T8mDhQTaMgOaaNDoQhCoXhlVvbWg";
+
+        // Define the prompt
+        const prompt = "Analyze the code and if any error give it. Also give time and space complexity "+jQuery("#codeInputBox").val()+" for problem statement "+jQuery("#prb_statement").html();
+
+        // Make the AJAX request
+        $.ajax({
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  data: JSON.stringify({
+    contents: [{
+      parts: [{ text: prompt }]
+    }]
+  }),
+  success: function(response) {
+    // Log the generated response
+    console.log(response);
+    
+    var result=response.candidates[0].content.parts[0].text.split("\n").join("<br>");
+    jQuery("#resultAnalysis").html(result);
+        jQuery("#resultAnalysis").show();
+  },
+  error: function(xhr, status, error) {
+    console.error("Error:", error);
+  }
+});
+
+        }
+
+        const mediumLevelProblems = [
+  "Write a function to find the longest palindrome in a given string.",
+  "Implement a function that returns the nth Fibonacci number using dynamic programming.",
+  "Create a function to flatten a nested array of arbitrary depth.",
+  "Write a function to determine if a given string has all unique characters without using additional data structures.",
+  "Design an algorithm to find the 'k' largest elements in an unsorted array.",
+  "Write a function to check if two strings are anagrams of each other.",
+  "Implement a function to rotate a 2D matrix by 90 degrees clockwise.",
+  "Create a function to merge two sorted arrays into one sorted array.",
+  "Write a function to find all subsets of a given set.",
+  "Implement a function to find the maximum subarray sum in an integer array using Kadane's Algorithm.",
+  "Design a function to remove duplicate elements from a sorted array.",
+  "Write a function to reverse words in a given sentence.",
+  "Implement a function to find the intersection of two arrays.",
+  "Create a function to perform binary search on a sorted array.",
+  "Write a function to check if a given integer is a palindrome.",
+  "Design a function to calculate the power of a number using recursion.",
+  "Implement a function to check if a binary tree is balanced.",
+  "Write a function to determine if a linked list contains a cycle.",
+  "Create a function to sort an array of objects by a given key.",
+  "Implement a function to calculate the factorial of a number using memoization.",
+  "Write a function to find the median of two sorted arrays.",
+  "Design an algorithm to merge overlapping intervals in an array.",
+  "Implement a function to validate if a given string has balanced parentheses.",
+  "Create a function to convert a Roman numeral to an integer.",
+  "Write a function to find the smallest missing positive integer in an array.",
+  "Implement a function to find the longest common prefix of an array of strings.",
+  "Create a function to calculate the sum of a nested array with varying depths.",
+  "Write a function to find the product of all elements in an array except the element itself.",
+  "Implement a function to find the longest increasing subsequence in an array.",
+  "Design a function to find the peak element in a mountain array.",
+  "Write a function to find all unique permutations of a given array of numbers.",
+  "Create a function to count the number of islands in a 2D grid.",
+  "Implement a function to generate all possible combinations of a given string.",
+  "Write a function to find the minimum path sum in a 2D grid.",
+  "Create a function to group anagrams from an array of strings.",
+  "Implement a function to find the next permutation of an array of numbers.",
+  "Write a function to calculate the maximum profit from buying and selling stocks.",
+  "Design an algorithm to solve the N-Queens problem.",
+  "Implement a function to calculate the Levenshtein distance between two strings.",
+  "Write a function to count the number of inversions in an array.",
+  "Create a function to perform matrix multiplication.",
+  "Implement a function to calculate the power set of a given set.",
+  "Write a function to convert a binary tree into a doubly linked list.",
+  "Design an algorithm to check if a given Sudoku solution is valid.",
+  "Implement a function to find the longest path in a directed acyclic graph.",
+  "Write a function to perform depth-first search on a graph.",
+  "Create a function to perform breadth-first search on a graph.",
+  "Implement a function to determine if a given string is a valid palindrome after removing non-alphanumeric characters.",
+  "Write a function to solve the coin change problem.",
+  "Create a function to find the minimum number of deletions to make a string a palindrome.",
+  "Implement a function to detect if a binary tree is a binary search tree.",
+  "Write a function to find the lowest common ancestor of two nodes in a binary tree.",
+  "Design an algorithm to generate all balanced parentheses combinations for a given number.",
+  "Implement a function to calculate the number of ways to climb a staircase with steps of 1 or 2.",
+  "Write a function to find the minimum element in a rotated sorted array.",
+  "Create a function to reverse a linked list in groups of 'k'.",
+  "Implement a function to find the minimum window substring containing all characters of another string.",
+  "Write a function to calculate the number of paths in a grid with obstacles.",
+  "Design an algorithm to rearrange an array so that even and odd numbers alternate.",
+  "Implement a function to find the majority element in an array.",
+  "Write a function to count the number of distinct subsequences of a string.",
+  "Create a function to calculate the area of the largest rectangle in a histogram.",
+  "Implement a function to find the maximum product of three numbers in an array.",
+  "Write a function to find the longest substring without repeating characters.",
+  "Design an algorithm to find all triplets in an array that sum to zero.",
+  "Create a function to partition an array into k contiguous parts with equal sums.",
+  "Implement a function to find the minimum number of jumps to reach the end of an array.",
+  "Write a function to calculate the edit distance between two strings.",
+  "Design an algorithm to find the longest path in a binary tree.",
+  "Implement a function to determine if a graph has a cycle.",
+  "Write a function to calculate the sum of all numbers formed by root-to-leaf paths in a binary tree.",
+  "Create a function to find the diameter of a binary tree.",
+  "Implement a function to calculate the maximum sum of a path in a binary tree.",
+  "Write a function to detect cycles in a directed graph.",
+  "Design an algorithm to find all nodes at a distance 'k' from a given node in a binary tree.",
+  "Implement a function to perform topological sort on a directed graph.",
+  "Write a function to find the largest divisible subset in an array of integers.",
+  "Create a function to generate all valid IP addresses from a given string.",
+  "Implement a function to perform flood fill on a 2D grid.",
+  "Write a function to count all paths from the top-left to the bottom-right corner of a grid.",
+  "Design an algorithm to sort an array of 0s, 1s, and 2s without using extra space.",
+  "Implement a function to find the length of the longest consecutive sequence in an array.",
+  "Write a function to find the minimum cost to reach the last cell in a 2D grid.",
+  "Create a function to reconstruct a binary tree from its inorder and preorder traversals.",
+  "Implement a function to convert a sorted linked list into a balanced binary search tree.",
+  "Write a function to serialize and deserialize a binary tree.",
+  "Design an algorithm to find all possible letter combinations of a phone number.",
+  "Implement a function to find the first missing positive integer in an array.",
+  "Write a function to count the number of ways to reach a target sum using a set of integers.",
+  "Create a function to find the kth smallest element in a binary search tree.",
+  "Implement a function to perform a zigzag level order traversal on a binary tree.",
+  "Write a function to find the minimum time to rot all oranges in a 2D grid.",
+  "Design an algorithm to calculate the length of the shortest transformation sequence from start to end words.",
+  "Implement a function to check if two rectangles overlap.",
+  "Write a function to find the kth largest element in an unsorted array.",
+  "Create a function to find the maximum area of an island in a 2D grid.",
+  "Implement a function to find the maximum distance between any two 1s in a binary array."
+];
+
+
+        function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+    </script>
+</head>
+<body>
+
+    <div class="main-container">
+       
+        <div class="flex-container">
+         
+            <div class="container">
+                <h2>Problem Statement</h2>
+                
+                <p><strong id="prb_statement"></strong></p>
+                <button class="btn" onclick="generateProblem()">Generate New Problem</button>
+            </div>
+
+            <!-- Code Input Section -->
+            <div class="container">
+                <h2>Code Input</h2>
+                <textarea id="codeInputBox" placeholder="Write your code here..."></textarea><br>
+                <!-- <button class="btn" onclick="compileCode()">Compile</button> -->
+                <button class="btn" onclick="analyzeCode()">Submit</button>
+            </div>
+        </div>
+        
+
+        <!-- Result Analysis Section at the bottom -->
+        <div class="container analysis" id="resultAnalysis">
+            <h2>Result Analysis</h2>
+            <p><span class="icon">🏅</span><strong>Grade:</strong> A</p>
+            <p><span class="icon">⏱️</span><strong>Time Complexity:</strong> O(n)</p>
+            <p><span class="icon">📦</span><strong>Space Complexity:</strong> O(1)</p>
+            <p><span class="icon">💡</span><strong>Suggestion:</strong> Try to reduce the time complexity by optimizing the loop.</p>
+        </div>
+        <button class="btn" onclick="out()">Back to Home</button><br><br>
+    </div>
+
+    <script>
+        
+        function compileCode() {
+            alert("Compiling code...");
+        }
+        function submitCode() {
+            document.getElementById("resultAnalysis").style.display = "block";
+        }
+        function out() {
+            window.location.href = "option.html"; 
+        }
+    </script>
+</body>
+</html>

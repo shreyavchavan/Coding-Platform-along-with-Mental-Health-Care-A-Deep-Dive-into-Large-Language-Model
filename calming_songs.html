@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calming Songs - Code_Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1, #ffd3b6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .songs-container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        h2 {
+            color: #1d8348;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .song {
+            margin: 15px 0;
+            text-align: left;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f1f8e9;
+            transition: background 0.3s;
+        }
+        .song:hover {
+            background-color: #e1f5fe;
+        }
+        .song p {
+            font-size: 18px;
+            color: #34495e;
+            margin: 0;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .footer {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="songs-container">
+        <h2>Calming Songs</h2>
+
+        <div class="song">
+            <p><strong>Song 1:</strong> Peaceful Meditation</p>
+            <audio controls>
+                <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="song">
+            <p><strong>Song 2:</strong> Relaxing Nature Sounds</p>
+            <audio controls>
+                <source src="https://www.bensound.com/bensound-music/bensound-creek.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="song">
+            <p><strong>Song 3:</strong> Soothing Piano</p>
+            <audio controls>
+                <source src="https://www.bensound.com/royalty-free-music/track/piano-moment.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div><br><br>
+        <button class="btn" onclick="out()">Back to Home</button>
+        <div class="footer">
+            <p>Relax and enjoy some tranquility with Code_Care.</p>
+        </div>
+        <script>
+            function out() {
+                window.location.href = "option.html"; 
+            }
+        </script>
+    </div>
+</body>
+</html>
